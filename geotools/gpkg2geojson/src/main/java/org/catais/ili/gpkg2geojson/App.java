@@ -24,7 +24,8 @@ public class App
     {
         System.out.println( "Hello World!" );
         
-        File file = new File("/Users/stefan/Projekte/gpkg2geojson/data/254900-lv95.gpkg");
+//        File file = new File("/Users/stefan/Projekte/gpkg2geojson/data/254900-lv95.gpkg");
+        File file = new File("/Users/stefan/Projekte/gpkg2geojson/data/254900.gpkg");
         
         try {
 			Map params = new java.util.HashMap();
@@ -40,23 +41,35 @@ public class App
 			SimpleFeatureSource source = store.getFeatureSource("Nomenklatur_FlurnamePos");
 			SimpleFeatureCollection fc = source.getFeatures();
 			
-			SimpleFeatureIterator iterator = fc.features();
-		    try {
-		        while( iterator.hasNext() ){
-		            SimpleFeature feature = iterator.next();
-		            System.out.println(feature.getDefaultGeometry().toString());
-		            
-		            FeatureJSON fjson = new FeatureJSON();
-		            StringWriter writer = new StringWriter();
-		            
-		            fjson.writeFeature(feature, writer);
-		            String json = writer.toString();   
-		            System.out.println(json);
-		        }
-		    }
-		    finally {
-		        iterator.close();
-		    }
+			 FeatureJSON fjson = new FeatureJSON();
+			 String geojson = fjson.toString(fc);
+			 System.out.println(geojson);
+			
+			
+			
+//			StringBuffer jsonStringB = new StringBuffer();
+//			
+//			SimpleFeatureIterator iterator = fc.features();
+//		    try {
+//		        while( iterator.hasNext() ){
+//		            SimpleFeature feature = iterator.next();
+////		            System.out.println(feature.getDefaultGeometry().toString());
+//		            
+//		            FeatureJSON fjson = new FeatureJSON();
+//		            StringWriter writer = new StringWriter();
+//		            
+//		            fjson.writeFeature(feature, writer);
+//		            String json = writer.toString();   
+//		            jsonStringB.append(json);
+////		            System.out.println(json);
+//		        }
+//		    }
+//		    finally {
+//		        iterator.close();
+//		    }
+//		    
+//		    System.out.println(jsonStringB.toString());
+		    
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
